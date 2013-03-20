@@ -1,0 +1,16 @@
+--- 
+applications: 
+  .: 
+    services: 
+      mongodb-db57c: 
+        type: mongodb
+    framework: 
+      info: 
+        description: Node.js Application
+        mem: 64M
+        exec: 
+      name: node
+    instances: 1
+    url: ${name}.${target-base}
+    name: zackboman
+    mem: 64M

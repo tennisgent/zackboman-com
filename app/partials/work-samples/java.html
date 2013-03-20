@@ -1,0 +1,33 @@
+<div class="container" xmlns="http://www.w3.org/1999/html">
+    <div class="box">
+        <div class="content">
+            <h1>
+                <img ng-src="img/java-projects/java-logo.png" class="code-logo" style="margin: -10px 10px -10px 0;">
+                Java Projects
+            </h1>
+        </div>
+    </div>
+    <div class="col_12" ng-repeat="java in projects">
+        <div class="box" id="main-box">
+            <div class="head">
+                <h2>
+                    <span class="title">
+                        {{java.name}}
+                    </span>
+                </h2>
+            </div>
+            <div class="content">
+                <div class="col_6">
+                    <img ng-src="{{java.screenshot}}" style="width:90%;" class="border1">
+                </div>
+                <div class="col_6">
+                    {{java.text}}<br>
+                    <strong>{{java.text2}}</strong><br>
+                    <ul class="no-margin">
+                        <li ng-repeat="tech in java.techs">{{tech}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

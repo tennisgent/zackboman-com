@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zb" ng-controller="Main">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <title>www.ZackBoman.com</title>
+
+    <link rel="shortcut icon" href="app/images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="app/images/apple-touch-icon.png"/>
+
+    <!--Stylesheets-->
+    <link rel="stylesheet" type='text/css' href="stylesheets/style.css"/>
+    <link rel="stylesheet" type='text/css' href="stylesheets/colors.css"/>
+    <link rel="stylesheet" type='text/css' href="stylesheets/progress.css"/>
+    <link rel="stylesheet" type='text/css' href="stylesheets/static.css"/>
+    <link rel="stylesheet" type='text/css' href="stylesheets/tooltips.css"/>
+    <link rel="stylesheet" type='text/css' href="css/app.css"/>
+
+    <!--Scripts-->
+    <script type="text/javascript" src="scripts/pdfobject.js"></script>
+    <script type="text/javascript" src="scripts/jquery.library.1.7.2.js"></script>
+    <script type="text/javascript" src="scripts/jquery.ui.library.custom.1.8.21.js"></script>
+    <script type="text/javascript" src="scripts/jquery.accordion.js"></script>
+    <script type="text/javascript" src="scripts/jquery.tabbed.js"></script>
+    <script type="text/javascript" src="scripts/jquery.placeholder.js"></script>
+    <script type="text/javascript" src="scripts/jquery.tipsy.js"></script>
+    <script type="text/javascript" src="scripts/application.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="app/scripts/css3-mediaqueries.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+    <div id="header">
+        <div id="header_toggle">
+            <a href="#/">
+                <span class="title focus-text">ZackBoman.com</span>
+            </a>
+        </div>
+        <ul id="header_menu">
+            <li class="left_item">
+                <a href="#/">
+                    <span class="icon en">L</span>
+                    <span class="title focus-text">Zack Boman</span>
+                </a>
+            </li>
+            <li class="left_item">
+                <a href="#/resume">
+                    <span class="icon en">w</span>
+                    <span class="title">My Resum&eacute;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div id="wrapper">
+        <div id="sidebar">
+            <div id="sidebar_toggle">
+                Navigation
+            </div>
+            <div id="sidebar_menu">
+                <div class="menu_item add_menu" ng-class="{current: isActive('/work-samples')}">
+                    <a href="#/work-samples">
+                        <span class="icon en">s</span>
+                        <span class="title">Work Samples</span>
+                        <span class="number">6</span>
+                    </a>
+                </div>
+                <ul class="sub_menu">
+                    <li ng-repeat="sample in workSamples">
+                        <a href="{{sample.link}}">{{sample.text}}</a>
+                    </li>
+                </ul>
+                <div class="menu_item" ng-class="{current: isActive('/qualifications')}">
+                    <a href="#/qualifications">
+                        <span class="icon en">l</span>
+                        <span class="title">Qualifications</span>
+                    </a>
+                </div>
+                <div class="menu_item" ng-class="{current: isActive('/education')}">
+                    <a href="#/education">
+                        <span class="icon en">?</span>
+                        <span class="title">Education</span>
+                    </a>
+                </div>
+                <div class="menu_item" ng-class="{current: isActive('/work-history')}">
+                    <a href="#/work-experience">
+                        <span class="icon en">N</span>
+                        <span class="title">Work Experience</span>
+                    </a>
+                </div>
+                <div class="menu_item" ng-class="{current: isActive('/references')}">
+                    <a href="#/references">
+                        <span class="icon en">+</span>
+                        <span class="title">References</span>
+                    </a>
+                </div>
+                <div class="menu_item" ng-class="{current: isActive('/contact')}">
+                    <a href="#/contact">
+                        <span class="icon en">!</span>
+                        <span class="title">Contact Me</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="main_content" ng-view></div>
+    </div>
+
+    <div id="modals">
+        <div id="modal_window" class="modal">
+            <div class="content">
+                <img id="modal-image" src="" style="width:100%;">
+            </div>
+        </div>
+    </div>
+
+    <div id="notify-top">
+        <a href="#">Dismiss</a>
+        <span class="title" id="notify-title"></span>
+        <span id="notify-subtitle"></span>
+    </div>
+
+    <script src="lib/angular/angular.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/controllers/main.js"></script>
+    <script src="js/controllers/work-samples.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/directives.js"></script>
+
+</body>
+
+
+</html>

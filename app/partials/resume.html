@@ -1,0 +1,27 @@
+<div class="container" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+
+    <div class="box col_12">
+        <div class="head">
+            <h2>Let me email you a copy...</h2>
+        </div>
+        <div class="content">
+            Type your email address in the form below and I will automatically email you a copy of my resum&eacute, along with my contact information.
+            <br><br>
+            <form autocomplete="off" class="col_6">
+                <p class="combine">
+                    <input type="text" ng-model="recipient" placeholder="Type in your email..." on-enter="sendEmail()">
+                    <a ng-click="sendEmail()" class="button rounded small dodger">Send Email</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <div id="pdf-view" pdf-viewer="misc/ZackBomanResume.pdf" style="height: 500px;">
+        <div class="box col_12">
+            <div class="content">
+                It appears you don't have Adobe Reader or PDF support in this web browser.<br>
+                <a href="ZackBomanResume.pdf">Click here to download the PDF</a>
+            </div>
+        </div>
+    </div>
+</div>

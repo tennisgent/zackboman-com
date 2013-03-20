@@ -1,0 +1,33 @@
+<div class="container" xmlns="http://www.w3.org/1999/html" >
+    <div class="box">
+        <div class="content">
+            <h1>Education</h1>
+        </div>
+    </div>
+    <div class="col_12" ng-repeat="school in schools">
+        <div class="box" id="main-box">
+            <div class="head">
+                <h2>
+                    <span class="title">
+                        {{school.name}}
+                    </span>
+                </h2>
+            </div>
+            <div class="content">
+                <div class="col_4">
+                    <h4>Courses Completed:</h4>
+                    <ul class="no-margin">
+                        <li ng-repeat="course in school.courses">{{course}}</li>
+                    </ul>
+                </div>
+                <div class="col_8">
+                    <h4>Anticipated Graduation: {{school.grad}}</h4>
+                    <h4>Remaining Courses: {{school.remaining}}</h4>
+                    {{school.text}}<br><br>
+                    <label><strong>{{school.progress}}% Complete</strong></label>
+                    <span ng-progress-bar="{{school.progress}}" class="orange large"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
