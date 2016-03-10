@@ -3,7 +3,7 @@ var fs = require('fs');
 var mongoose = require('mongoose');
 var mailer = require('nodemailer');
 var app = express();
-var PORT = 8000;
+var PORT = 80;
 
 //var env = JSON.parse(process.env.VCAP_SERVICES);
 var mongourl = ['mongodb-1.8'][0]['credentials'];
