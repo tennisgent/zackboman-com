@@ -203,7 +203,7 @@ var PDFObject = function (obj){
 
 		}
 
-		targetNode.innerHTML = '<object	data="' +url +'" type="application/pdf" width="' +width +'" height="' +height +'"></object>';
+		targetNode.innerHTML = '<object	data="' +url +'" type="application/pdf" width="' +width +'" height="' +height +'"><param name="view" value="Fit" /></object>';
 
 		return targetNode.getElementsByTagName("object")[0];
 

@@ -13,30 +13,38 @@
                     </span>
                 </h2>
             </div>
-            <div class="content">
+            <div class="content" id="references">
                 <div class="col_5">
-                    <table class="static_table highlight">
+                    <table class="static_table">
                         <tbody>
                             <tr>
-                                <td><span class="icon ws">Z</span> Company</td><td>{{ref.company}}</td>
+                                <td><span class="icon ws">Z</span></td>
+                                <td>{{ref.company}}</td>
                             </tr>
                             <tr>
-                                <td><span class="icon ws">U</span> Position</td><td>{{ref.position}}</td>
+                                <td><span class="icon ws">U</span></td>
+                                <td>{{ref.position}}</td>
                             </tr>
                             <tr>
-                                <td><span class="icon ws">@</span> Email</td><td>{{ref.email}}</td>
+                                <td><span class="icon ws">@</span></td>
+                                <td><a href="mailto:{{ref.email}}">{{ref.email}}</a></td>
                             </tr>
                             <tr>
-                                <td><span class="icon en">!</span> Phone</td><td>{{ref.phone}}</td>
+                                <td><span class="icon en">!</span></td>
+                                <td>
+                                    <form autocomplete="off">
+                                        <a ng-click="downloadVCF(ref)">Download vCard</a>
+                                    </form>
+                                </td>
                             </tr>
                             <tr>
-                                <td><span class="icon en">y</span> Website</td>
+                                <td><span class="icon en">y</span></td>
                                 <td><a href="{{ref.web}}">{{ref.web}}</a></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="col_6">
+                <div class="col_5">
                     {{ref.text}}
                 </div>
             </div>

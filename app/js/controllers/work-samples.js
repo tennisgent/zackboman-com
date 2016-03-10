@@ -2,18 +2,36 @@
 
 /* Controllers */
 
-function Web($scope, $location){
+function Web($scope){
     $scope.projects = [
-        {name: "ZackBoman.com",
+        {
+            name: "XactCredentials",
+            link: "http://test.xactcredentials.com",
+            text: "I was the first front-end developer on the team and was able to build the site from the ground up.  Its built completely on AngularJS, consuming RESTful web services. The site is also 100% responsive so it can be accessed from any device.",
+            techs: ["Angular.js","SASS","Jasmine","Protractor","Git","Grunt.js","Gulp.js"],
+            screenshot: "img/web-projects/xactcredentials.png"
+        },
+        {
+            name: "MyAmazonAlerts.com (in progress)",
+            link: "http://getdealalerts.herokuapp.com",
+            text: "I wanted to be alerted about Amazon Lightning Deals without having to manually check their website every day.  Unfortunately Amazon doesn't offer the types of alerts that I was interested in, so I decided to create my own site. MyAmazonAlerts allows users to sign in using OAuth 2.0 for Facebook or Google+ (with plans to expand to Amazon), and create \"tags\" that will create on-going, real-time searches for them. Users will be notified when any of their tags matches any of the products being sold on Amazon's Lightning Deals or Best Deals campaigns. My Node.js server integrates directly with Amazon's REST API and continuously polls every 5 minutes to get the latest deals.  The site is still very much a work-in-progress, but it has been a fun challenge. It is currently hosted on Heroku.",
+            techs: ["Angular.js","SASS","Node.js","Express.js","MongoDB","Mongoose.js","OAuth 2.0","100% Responsive Design"],
+            screenshot: "img/web-projects/myamazonalerts.png"
+        },
+        {
+            name: "ZackBoman.com",
             link: "http://www.zackboman.com",
             text: "This site has given me a chance to finally learn and utilize several of the amazing web technologies that I have been hearing a lot of buzz about.  Prior to building this site, I had used Node.js for a couple of small projects, but had never been able to test it out completely.  I also really wanted to learn Angular.js and to create a single-page application.",
             techs: ["Node.js","Angular.js","ThemeForest.net CSS Theme","jQuery","Sugar.js"],
-            screenshot: "img/web-projects/zackboman.png"},
-        {name: "AboutOne.com",
+            screenshot: "img/web-projects/zackboman.png"
+        },
+        {
+            name: "AboutOne.com",
             link: "http://www.aboutone.com/",
             text: "My most recent job was working for AboutOne, which is a web-based application that enables families to keep track of their important information.  I was a part of their UI team and worked strictly on client-side code using the following technologies: ",
             techs: ["Twitter Bootstrap","jQuery","AJAX","jsRender Templates","HTML5 Canvas"],
-            screenshot: "img/web-projects/aboutone.png"}
+            screenshot: "img/web-projects/aboutone.png"
+        }
     ];
 }
 Web.$inject = ['$scope','$location'];

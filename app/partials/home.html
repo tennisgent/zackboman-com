@@ -2,7 +2,6 @@
     <div class="box">
         <div class="content">
             <em>I appreciate your sincere consideration and look forward to meeting you and working with you in the future.  I love working with people, creating inventive solutions to complex tasks, and working hard to accomplish a collective goal. I am a great team player and will be an excellent addition to your staff.</em>
-
         </div>
     </div>
     <div class="col_12">
@@ -14,15 +13,58 @@
             </div>
             <div class="content">
                 <div class="col_4">
-                    <img src="img/headshot.jpg" style="width:90%;">
+                    <img src="img/headshot.jpg" style="width:100%; max-width:250px; display:block; margin: 0 auto;">
                 </div><br>
                 <div class="col_8 social-links">
                     I am ambitiously motivated, self-reliant, and determined to accomplish everything I set my mind to. My tenacity for work and love of a challenge enable me to complete tasks on time and efficiently. I am well organized, professional and enjoy getting to know others.
-                    <br><br><br>
+                    <br><br>
                     <a ng-repeat="site in social" href="{{site.link}}" class="tooltip" ng-tooltip="{{site.name}}">
                         <img ng-src="{{site.icon}}">
                     </a>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="col_6">
+        <div class="box">
+            <div class="head">
+                <h2>I'll email my resum&eacute directly to you</h2>
+            </div>
+            <div class="content">
+                Type your email address in the form below and I will automatically email you a copy of my resum&eacute, along with my contact information.
+                <br><br>
+                <form autocomplete="off">
+                    <p class="combine">
+                        <input type="text" ng-model="recipient" placeholder="Type in your email..." on-enter="sendEmail()">
+                        <a ng-click="sendEmail()" class="button rounded small dodger">Send Email</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col_6">
+        <div class="box">
+            <div class="head">
+                <h2>Check me out on <img class="so-icon" src="img/stackoverflow.png"> Stack Overflow!</h2>
+            </div>
+            <div class="content">
+                <a class="so-container" ng-href="{{so.link}}">
+                    <div class="so-photo">
+                        <img ng-src="{{so.photo}}"><br>
+                        <span class="so-username">{{so.username}}</span>
+                    </div>
+                    <div class="so-content">
+                        <p>Reputation</p>
+                        <span class="so-points">{{so.reputation | number}}</span>
+                    </div>
+                    <div class="so-content">
+                        <p>Badges</p>
+                        <span class="so-badge bronze">{{so.badgeCounts.bronze}}</span>
+                        <span class="so-badge silver">{{so.badgeCounts.silver}}</span>
+                        <span class="so-badge gold">{{so.badgeCounts.gold}}</span>
+                    </div>
+
+                </a>
             </div>
         </div>
     </div>

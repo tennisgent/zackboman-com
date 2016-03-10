@@ -55,6 +55,19 @@
     margin:0;
 }
 
+@media all and (max-width: 500px) {
+    .container .box .content h1 img{
+        display:none;
+    }
+}
+
+@media all and (max-width: 800px) {
+    #experience .content .col_4{
+        display:block;
+        float: none;
+    }
+}
+
 .masonry-container{
     -moz-column-count: 2;
     -moz-column-gap: 20px;
@@ -63,6 +76,20 @@
     column-count: 2;
     column-gap: 20px;
     /*display: inline-block;*/
+}
+
+a[href*="tel"]{
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Handsets */
+@media all and (max-width: 700px) {
+    a[href*="tel"]{
+        color: #4dbeff;
+        cursor: pointer;
+        text-decoration: none;
+    }
 }
 
 @media all and (max-width: 500px) {
@@ -87,6 +114,7 @@
         column-gap: 20px;
         /*display: inline-block;*/
     }
+
 }
 
 .masonry-container  .masonry-inner{
@@ -96,6 +124,8 @@
     -ms-column-break-inside:avoid;
     column-break-inside:avoid;
 }
+
+
 
 #header_toggle a{
     text-decoration: none;
@@ -116,14 +146,15 @@ img.code-logo{
 
 /*Notifications*/
 #notify-top{
-    position: fixed;
+    position: absolute;
     top: 0;
+    left:0;
     width: 100%;
     display: none;
     background-color: #cd891e;
     color: white;
     padding: 10px 0;
-    z-index: 100000;
+    z-index: 100005;
     box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
 }
 .notify-success{
@@ -152,4 +183,164 @@ img.code-logo{
     float: right;
     color: white;
     margin-right: 50px;
+}
+
+#references table, #contact table{
+    margin-bottom: 20px;
+}
+#references table td:first-child, #contact table td:first-child{
+    text-align: center;
+    max-width: 20px !important;
+    width:20px;
+}
+
+#header_toggle a{
+    padding: 0 10px;
+}
+#sidebar_toggle a{
+    display: block;
+    float:left;
+    border-right: 1px solid #286f8d;
+    min-width: 20px;
+    padding: 0 12px;
+    color:white;
+
+}
+#sidebar_toggle a:first-child{
+    border-left: 1px solid #286f8d;
+}
+#sidebar_toggle a.active{
+    background-color: #3a7bcb;
+}
+#sidebar_toggle a span.icon.en{
+    font-size: 35px;
+}
+#sidebar_toggle a span.title{
+    display:none;
+}
+
+/*@media all and (max-width: 600px) {*/
+    /*#sidebar_toggle a{*/
+        /*min-width: 18px;*/
+        /*padding: 0 12px;*/
+    /*}*/
+/*}*/
+
+/* INTRO WIZARD STYLES */
+#intro-canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:100000;
+    /*width:100%;*/
+    /*height:100%;*/
+    opacity:0.7;
+    display:none;
+}
+#intro-textbox, .textbox-box{
+    position:fixed;
+    z-index: 100001;
+    background-color: #ebf3ff;
+    /*color: #a08659;*/
+    padding: 15px;
+    /*border: 5px solid #a08659;*/
+    /*border-radius: 8px;*/
+    display:none;
+    margin: auto;
+    box-shadow: 3px 3px 2px rgba(0,0,0,0.3);
+    width:80%;
+    max-width: 400px;
+}
+#intro-next-btn, .textbox-next{
+    display:block;
+    margin: 0 auto 0 auto;
+}
+
+#intro-skip-btn{
+    float:right;
+    margin: -5px 0;
+}
+#intro-title, .textbox-title{
+    font-size:20px;
+    line-height: 28px;
+    font-weight: bold;
+}
+#vcard-textbox, #vcard-textbox2{
+    text-align:center;
+}
+#vcard-textbox button, #vcard-textbox2 button{
+    margin: 8px 5px;
+}
+
+.hideTour{
+    display:none !important;
+}
+
+
+
+
+/* STARTING OVER */
+
+.so-container{
+    color: #777;
+    display: block;
+    padding: 10px;
+}
+.so-container:hover{
+    background-color: #ddd;
+}
+.so-photo{
+    display: inline-block;
+    width: 25%;
+    text-align: center;
+}
+.so-photo img{
+    vertical-align: top;
+    display: inline-block;
+    max-width: 80px;
+}
+.so-content{
+    width: 35%;
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+}
+.so-username{
+    font-size: 18px;
+    margin-top: 0;
+    font-weight: 200;
+}
+.so-points{
+    font-size: 24px;
+    color: black;
+}
+
+.so-badge{
+    display: inline-block;
+    padding: 3px 8px;
+    color: white;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    min-width: 10px;
+    text-align: center;
+}
+.so-badge.gold{
+    background-color: goldenrod;
+}
+.so-badge.silver{
+    background-color: silver;
+}
+.so-badge.bronze{
+    background-color: saddlebrown;
+}
+.so-icon{
+    width: 20px;
+    height: auto;
+}
+@media (max-width: 600px){
+    .so-content,
+    .so-photo{
+        width: 100%;
+    }
 }

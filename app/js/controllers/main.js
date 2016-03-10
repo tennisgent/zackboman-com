@@ -28,26 +28,8 @@ var social = [
         icon: "img/social/email.png"}
 ];
 
-function notify(title, subtitle, autodismiss, type, time){
-    $("#notify-title").text(title);
-    $("#notify-subtitle").text(subtitle);
-    var div = $("#notify-top");
-    div.removeClass();
-    div.addClass(type || "notify-warning");
-    div.slideDown("slow");
-    div.children("a").on("click",function(e){
-        e.preventDefault();
-        $("#notify-top").slideUp("slow");
-    });
-    if(autodismiss){
-        setTimeout(function(){
-            $("#notify-top").slideUp("slow");
-        }, time || 3000);
-    }
 
-}
-
-function Main($scope, $location){
+function Main($scope, $location, Email, $rootScope, Intro, $http){
     $scope.isActive = function(route){
         return route == $location.path();
     };
@@ -58,10 +40,30 @@ function Main($scope, $location){
         {text: "Java Projects", link: "#/work-samples/java", icon: ".java", color: "purple"}
 //        {text: "C# Projects", link: "#/work-samples/cs", icon: ".cs", color: "yellow"}
     ];
-}
-Main.$inject = ['$scope','$location'];
+    $scope.recipient = "";
+    $scope.sendEmail = function(){
+        setTimeout(function(){
+            Email.send([$scope.recipient.trim()], function(resp){
+                $scope.recipient = "";
+            });
+        }, 1000);
+    };
+    $rootScope.Intro = Intro;
 
-function Home($scope) {
+    $http.jsonp('https://api.stackexchange.com/2.2/users/1313904?site=stackoverflow&callback=JSON_CALLBACK').success(function(data){
+        data = data.items[0];
+        $scope.so = {
+            badgeCounts: data.badge_counts,
+            reputation: data.reputation,
+            photo: data.profile_image,
+            link: data.link,
+            username: data.display_name
+        };
+    });
+}
+Main.$inject = ['$scope','$location','Email','$rootScope','Intro','$http'];
+
+function Home($scope, $rootScope, Email) {
     $scope.languages = [
         "JavaScript/HTML/CSS",
         "Java",
@@ -70,8 +72,75 @@ function Home($scope) {
     ];
     $scope.social = social;
 
+    var Intro = $rootScope.Intro;
+
+    $rootScope.takeTour = function(override){
+        Intro.start = function(){
+            if(!override && !Intro.okToStart()) return false;
+            window.scrollTo(0,0);
+            Intro.addCanvas();
+            Intro.textBox(
+                "Welcome!",
+                "My name is Zack Boman and this website is my online resume. Let me show you around!",
+                "",
+                "Take a Tour!"
+            );
+            Intro.next = function(){
+                var visible = $("#header-resume").is(":visible");
+                if(visible){
+                    Intro.clearArc('#header-resume');
+                }
+                Intro.textBox(
+                    "The PDF Shortcut",
+                    (visible ? 'By tapping this button, you' : 'You ') + " can view the PDF version of my resume or I'll even email you a copy.",
+                    "",
+                    "Next"
+                );
+                Intro.next = function(){
+                    Intro.clearRect('#sidebar');
+                    Intro.textBox(
+                        "Browse Around",
+                        "Use this menu to navigate your way around the site.  There's lots to see so feel free to take your time.",
+                        "",
+                        "Next"
+                    );
+                    Intro.next = function(){
+                        Intro.addCanvas();
+                        Intro.textBox(
+                            "Thank You!",
+                            "I sincerely appreciate your time and consideration and look forward to meeting you and working with you in the future.  I know I'll be a helpful addition to your team.",
+                            "",
+                            "Start Browsing"
+                        );
+                        Intro.next = Intro.end;
+                    };
+                };
+            };
+        };
+
+        window.onorientationchange = function(){
+            if(Intro.active) Intro.start();
+        };
+        window.onresize = function(){
+            if(Intro.active) Intro.centerBox('#intro-textbox', 130);
+        };
+
+        Intro.start();
+    };
+
+    setTimeout(function(){
+        $rootScope.takeTour();
+    }, 1000);
+
+    $scope.recipient = "";
+    $scope.sendEmail = function(){
+        Email.send([$scope.recipient.trim()], function(resp){
+            $scope.recipient = "";
+        });
+    };
+
 }
-Home.$inject = ['$scope'];
+Home.$inject = ['$scope','$rootScope','Email'];
 
 function WorkSamples($scope) {
 
@@ -117,20 +186,36 @@ Qualifications.$inject = ['$scope'];
 function Education($scope) {
     $scope.schools = [
         {name: "Utah Valley University",
-            text: "I have been attending UVU for four and a half years now and have really enjoyed it.  My classes have been very interesting and I've learned a lot.  I have a love for learning new things because I have a firm belief that everything I learn will eventually benefit me at some point in my career.  A brief list of some of the classes I have completed are listed to the left.  Unfortunately, the three classes I have left are only taught in such a way that I have to wait until Spring of 2014 to graduate.",
+            text: "I attended UVU for four and really enjoyed it.  My classes were very interesting and I learned a lot.  I have a love for learning new things because I have a firm belief that everything I learn will eventually benefit me at some point in my career.  A brief list of some of the classes I have completed are listed to the left.  I recently graduated in April of 2014.",
             grad: "April 2014",
-            remaining: 3,
-            courses: ["Internet Software Development","Advanced Software Engineering","Introduction to Python","Database Theory","Analysis of Programming Languages","Discrete Structures","and more"],
-            progress: 94}
+            remaining: 0,
+            courses: ["Compilers","Advanced Computer Architecture","Internet Software Development","Advanced Software Engineering","Introduction to Python","Database Theory","Analysis of Programming Languages","Discrete Structures","and more"],
+            progress: 100}
     ];
 }
 Education.$inject = ['$scope'];
 
 function WorkExperience($scope) {
     $scope.experience = [
-        {name: "AboutOne LLC",
+        {
+            name: "Xactware, Inc",
+            position: "Front End Web Developer",
+            time: "April 2013 to Present",
+            place: "Lehi, Utah",
+            link: "http://test.xactcredentials.com",
+            duties: [
+                "Architect a full-scale, enterprise web application",
+                "100% Responsive design with CSS3 animations",
+                "80% front-end javascript unit test coverage",
+                "Focus on simple, maintainable implemenations",
+                "Design, write, maintain Grunt/Gulp build scripts",
+                "Created AngularJS-Protractor Reporting framework"
+            ]
+        },
+        {
+            name: "AboutOne LLC",
             position: "Client-side/Mobile App Developer",
-            time: "March 2012 to Present",
+            time: "March 2012 to April 2013",
             place: "Lehi, Utah",
             link: "http://www.aboutone.com",
             duties: [
@@ -138,8 +223,10 @@ function WorkExperience($scope) {
                 "Create statistics gathering service via Node.js web server",
                 "Add new functionality to AboutOne.com web app",
                 "Restyle existing AboutOne.com web pages using CSS"
-            ]},
-        {name: "Neovest, Inc",
+            ]
+        },
+        {
+            name: "Neovest, Inc",
             position: "Quality Assurance Intern",
             time: "April 2011 to March 2012",
             place: "Orem, Utah",
@@ -149,48 +236,107 @@ function WorkExperience($scope) {
                 "Manually tested software each day before nightly build release",
                 "Worked with lead developers to ensure that issues were fixed",
                 "Worked with the QA team to find and fix software bugs"
-            ]},
-        {name: "Utah County 4H Mentoring",
-            position: "Client-side/Mobile App Developer",
+            ]
+        },
+        {
+            name: "Utah County 4H Mentoring",
+            position: "Site Coordinator",
             time: "July 2009 to April 2011",
             place: "Provo, Utah",
             link: "http://utahcounty4-h.org/",
             duties: [
                 "Recruit college-age mentors to work with youth",
                 "Planned and executed monthly activities for youth and families"
-            ]}
+            ]
+        }
     ];
 }
 WorkExperience.$inject = ['$scope'];
 
-function References($scope) {
+function References($scope, $rootScope, Util, Email) {
+    var Intro = $rootScope.Intro;
     $scope.references = [
-        {name: "Jesse Harding",
+        {
+            name: "Robert Rollins",
+            company: "Xactware Inc",
+            position: "XactCredentials Development Team Lead",
+            email: "rollinsgi@gmail.com",
+            phone: "(801) 602-8216",
+            realPhone: "8016028216",
+            web: "http://test.xactcredentials.com/",
+            text: "He is my current supervisor at Xactware. He will testify to my hard work, my ability to lead and guide others, as well as my technical and programming skills. He is a great guy and has taught me a lot about leadership and team management.",
+            vcard: "misc/RobertRollins_vCard.vcf"
+        },
+        {
+            name: "Jesse Harding",
             company: "AboutOne LLC",
             position: "UI Team Manager",
             email: "jharding@aboutone.com",
             phone: "(801) 910-0724",
+            realPhone: "8019100724",
             web: "http://www.aboutone.com/",
-            text: "Direct supervisor while working at AboutOne. He can verify my ability to learn new technologies quickly and how I am able to be flexible to changing priorities and working conditions. He will also verify my visual design skills while working on his front-end design team. He would always give me the most challenging assignments because he knew I could not only handle the work load but that the finished product would exceed his expectations."},
-        {name: "Phil McDonald",
+            text: "Direct supervisor while working at AboutOne. He can verify my ability to learn new technologies quickly and how I am able to be flexible to changing priorities and working conditions. He will also verify my visual design skills while working on his front-end design team. He would always give me the most challenging assignments because he knew I could not only handle the work load but that the finished product would exceed his expectations.",
+            vcard: "misc/JesseHarding_vCard.vcf"
+        },
+        {
+            name: "Phil McDonald",
             company: "Neovest, Inc.",
             position: "QA Supervisor",
             email: "philsmcdonald@gmail.com",
             phone: "(801) 432-0560",
+            realPhone: "8014320560",
+            vcard: "misc/PhilMcDonald_vCard.vcf",
             web: "http://www.neovest.com/",
-            text: "Supervisor while working for Neovest Inc. He will give a great reference for technical skills, coding/programming ability and interpersonal/people skills."},
-        {name: "Jolene Bunnell",
-            company: "Utah County 4-H",
-            position: "USU Extension Agent",
-            email: "jolene.bunnell@usu.edu",
-            phone: "(801) 318-4603",
-            web: "http://utahcounty4-h.org/",
-            text: "Jolene is the executive director of the Utah Count 4-H program. I worked closely with her during my 18 months working for the 4-H program. She will attest to my love for hard work and how well I can work with other people, even in tough situations."}
+            text: "Supervisor while working for Neovest Inc. He will give a great reference for technical skills, coding/programming ability and interpersonal/people skills."
+        }
     ];
-}
-References.$inject = ['$scope'];
+    $scope.downloadVCF = function(ref){
 
-function Contact($scope) {
+        Intro.start = function(){
+            Intro.addCanvas();
+            Intro.showBox(
+                "#vcard-textbox",
+                {"#vcard-description": "To protect my references, I have hidden their phone numbers.  If you'd like " + ref.name + "'s complete contact information, please download his/her electronic vCard"}
+            );
+            Intro.next = function(){
+                $("#intro-textbox").fadeOut();
+                if(Util.isApple()){
+                    Intro.showBox("#vcard-textbox2");
+                    Intro.next = function(){
+                        var email = $("#vcard-email").val().trim();
+                        Email.vcard(email, ref.vcard, function(resp){
+                            Intro.end();
+                        });
+                    };
+                }else{
+                    Intro.end();
+                    window.location = ref.vcard;
+                }
+            };
+            var temp = Intro.end;
+            Intro.end = function(){
+                $("#vcard-textbox, #vcard-textbox2, #intro-canvas").fadeOut();
+                Intro.active = false;
+                Intro.end = temp;
+            };
+        };
+
+        window.onorientationchange = function(){
+            if(Intro.active) Intro.start();
+        };
+        window.onresize = function(){
+            if(Intro.active){
+                Intro.centerBox('#vcard-textbox');
+                Intro.centerBox('#vcard-textbox2');
+            }
+        };
+
+        Intro.start();
+    };
+}
+References.$inject = ['$scope','$rootScope','Util','Email'];
+
+function Contact($scope, Intro, Util, Email) {
     $scope.social = social;
     $scope.text = "I am available 24 hours a day by phone or email. \
             You are welcome to call, text or email any time. \
@@ -200,38 +346,51 @@ function Contact($scope) {
     $scope.info = {
         name: "Zackary L. Boman",
         email: "zack.boman@gmail.com",
-        phone: "(801) 589-0692"
+        phone: "(801) 589-0692",
+        address1: "2528 N Elm Dr",
+        address2: "Lehi, UT 84043",
+        vcard: 'misc/ZackBoman_vCard.vcf'
     };
-}
-Contact.$inject = ['$scope'];
-
-function Resume($scope, $http) {
-    $scope.recipient = "";
-    $scope.sendEmail = function(){
-        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if(re.test($scope.recipient.trim())){
-            var data = {recipients: [$scope.recipient.trim()]};
-            $http.post('/email', data)
-                .success(function(resp){
-                    console.log(JSON.stringify(resp));
-                    $scope.recipient = "";
-                    notify(
-                        "Your email has been sent",
-                        "An email has been sent to " + $scope.recipient.trim() + " with an attached copy of my resume and contact info.",
-                        true,
-                        "notify-success",
-                        5000
-                    );
-                });
+    $scope.downloadVCF = function(ref){
+        if(Util.isApple()){
+            Intro.start = function(){
+                Intro.addCanvas();
+                Intro.showBox("#vcard-textbox2");
+                Intro.next = function(){
+                    var email = $("#vcard-email").val().trim();
+                    Email.vcard(email, ref.vcard, function(resp){
+                        Intro.end();
+                    });
+                };
+                var temp = Intro.end;
+                Intro.end = function(){
+                    $("#vcard-textbox2, #intro-canvas").fadeOut();
+                    Intro.active = false;
+                    Intro.end = temp;
+                };
+            };
+            window.onorientationchange = function(){
+                if(Intro.active) Intro.start();
+            };
+            window.onresize = function(){
+                if(Intro.active){
+                    Intro.centerBox('#vcard-textbox2');
+                }
+            };
+            Intro.start();
         }else{
-            notify(
-                "Email was invalid",
-                "It looks like the email address you entered was invalid. Please try again.",
-                true,
-                "notify-error",
-                5000
-            );
+            window.location = ref.vcard;
         }
     };
 }
-Resume.$inject = ['$scope','$http'];
+Contact.$inject = ['$scope','Intro','Util','Email'];
+
+function Resume($scope, Email) {
+    $scope.recipient = "";
+    $scope.sendEmail = function(){
+        Email.send([$scope.recipient.trim()], function(resp){
+            $scope.recipient = "";
+        });
+    };
+}
+Resume.$inject = ['$scope','Email'];

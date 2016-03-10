@@ -103,7 +103,7 @@ table.static_table thead.clean th {
 @media only screen and (max-width : 480px) {
 
 	table.static_table {
-		display: block;
+		/*display: block;*/
 		position: relative;
 		overflow-x: scroll;
 		width: 100%;

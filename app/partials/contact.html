@@ -1,4 +1,4 @@
-<div class="container" xmlns="http://www.w3.org/1999/html" >
+<div class="container" xmlns="http://www.w3.org/1999/html">
     <div class="box">
         <div class="content">
             <h1>Contact Me</h1>
@@ -11,18 +11,31 @@
                     <span class="title">Information</span>
                 </h2>
             </div>
-            <div class="content">
-                <div class="col_6">
-                    <table class="static_table highlight">
+            <div class="content" id="contact">
+                <div class="col_5">
+                    <table class="static_table">
                         <tbody>
                             <tr>
-                                <td><span class="icon ws">U</span> Name</td><td>{{info.name}}</td>
+                                <td><span class="icon ws">U</span></td>
+                                <td>{{info.name}}</td>
                             </tr>
                             <tr>
-                                <td><span class="icon ws">@</span> Email</td><td>{{info.email}}</td>
+                                <td><span class="icon ws">@</span></td>
+                                <td><a href="mailto:{{info.email}}">{{info.email}}</a></td>
                             </tr>
                             <tr>
-                                <td><span class="icon en">!</span> Phone</td><td>{{info.phone}}</td>
+                                <td><span class="icon en">!</span></td>
+                                <td><a href="tel:{{info.phone}}">{{info.phone}}</a></td>
+                            </tr>
+                            <tr>
+                                <td><span class="icon en">2</span></td>
+                                <td>{{info.address1}}<br>{{info.address2}}</td>
+                            </tr>
+                            <tr>
+                                <td><span class="icon en">w</span></td>
+                                <td>
+                                    <a ng-click="downloadVCF(info)">Download vCard</a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

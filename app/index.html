@@ -34,11 +34,15 @@
 </head>
 <body>
     <div id="header">
-        <div id="header_toggle">
-            <a href="#/">
-                <span class="title focus-text">ZackBoman.com</span>
-            </a>
-        </div>
+        <!--<div id="header_toggle">-->
+            <!--<a href="#/">-->
+                <!--<span class="icon en">L</span>-->
+                <!--<span class="title focus-text">ZackBoman.com</span>-->
+            <!--</a>-->
+            <!--<a href="#/resume">-->
+                <!--<span class="icon en">w</span>-->
+            <!--</a>-->
+        <!--</div>-->
         <ul id="header_menu">
             <li class="left_item">
                 <a href="#/">
@@ -46,10 +50,16 @@
                     <span class="title focus-text">Zack Boman</span>
                 </a>
             </li>
-            <li class="left_item">
+            <li class="left_item" id="header-resume">
                 <a href="#/resume">
                     <span class="icon en">w</span>
                     <span class="title">My Resum&eacute;</span>
+                </a>
+            </li>
+            <li class="left_item" ng-class="{hideTour: !isActive('/')}">
+                <a ng-click="takeTour(true)">
+                    <span class="icon en">3</span>
+                    <span class="title">Take a tour!</span>
                 </a>
             </li>
         </ul>
@@ -57,14 +67,43 @@
     <div id="wrapper">
         <div id="sidebar">
             <div id="sidebar_toggle">
-                Navigation
+                <!--Navigation-->
+                <div style="margin: 0 auto; width: 280px;">
+                    <a data-href="#/work-samples" ng-class="{active: isActive('/work-samples')}">
+                        <span class="icon en">s</span>
+                        <span class="title">Work Samples</span>
+                    </a>
+                    <a data-href="#/qualifications" ng-class="{active: isActive('/qualifications')}">
+                        <span class="icon en">l</span>
+                        <span class="title">Qualifications</span>
+                    </a>
+                    <a data-href="#/education" ng-class="{active: isActive('/education')}">
+                        <span class="icon en">?</span>
+                        <span class="title">Education</span>
+                    </a>
+                    <a data-href="#/work-experience" ng-class="{active: isActive('/work-experience')}">
+                        <span class="icon en">N</span>
+                        <span class="title">Work Experience</span>
+                    </a>
+                    <a data-href="#/references" ng-class="{active: isActive('/references')}">
+                        <span class="icon en">,</span>
+                        <span class="title">References</span>
+                    </a>
+                    <a data-href="#/contact" ng-class="{active: isActive('/contact')}">
+                        <span class="icon en">!</span>
+                        <span class="title">Contact Me</span>
+                    </a>
+                    <!--<a ng-click="takeTour(true)" ng-class="{hideTour: !isActive('/')}">-->
+                        <!--<span class="icon en">3</span>-->
+                        <!--<span class="title">Take a tour!</span>-->
+                    <!--</a>-->
+                </div>
             </div>
             <div id="sidebar_menu">
                 <div class="menu_item add_menu" ng-class="{current: isActive('/work-samples')}">
-                    <a href="#/work-samples">
+                    <a>
                         <span class="icon en">s</span>
                         <span class="title">Work Samples</span>
-                        <span class="number">6</span>
                     </a>
                 </div>
                 <ul class="sub_menu">
@@ -84,7 +123,7 @@
                         <span class="title">Education</span>
                     </a>
                 </div>
-                <div class="menu_item" ng-class="{current: isActive('/work-history')}">
+                <div class="menu_item" ng-class="{current: isActive('/work-experience')}">
                     <a href="#/work-experience">
                         <span class="icon en">N</span>
                         <span class="title">Work Experience</span>
@@ -92,7 +131,7 @@
                 </div>
                 <div class="menu_item" ng-class="{current: isActive('/references')}">
                     <a href="#/references">
-                        <span class="icon en">+</span>
+                        <span class="icon en">,</span>
                         <span class="title">References</span>
                     </a>
                 </div>
@@ -102,23 +141,52 @@
                         <span class="title">Contact Me</span>
                     </a>
                 </div>
+                <div class="menu_item" ng-class="{hideTour: !isActive('/')}">
+                    <a ng-click="takeTour(true)">
+                        <span class="icon en">3</span>
+                        <span class="title">Take a tour!</span>
+                    </a>
+                </div>
             </div>
         </div>
         <div id="main_content" ng-view></div>
-    </div>
-
-    <div id="modals">
-        <div id="modal_window" class="modal">
-            <div class="content">
-                <img id="modal-image" src="" style="width:100%;">
-            </div>
-        </div>
     </div>
 
     <div id="notify-top">
         <a href="#">Dismiss</a>
         <span class="title" id="notify-title"></span>
         <span id="notify-subtitle"></span>
+    </div>
+
+
+    <div id='intro-textbox' class='box'>
+        <div class='content'>
+            <a ng-click='Intro.end();' id='intro-skip-btn'>Skip Tour</a>
+            <span id='intro-title'></span><br>
+            <span id='intro-description'></span><br>
+            <span id='intro-content' ng-bind-html-unsafe="Intro.content"></span><br>
+            <button class='button small dodger rounded textbox-next' ng-click='Intro.next();' id='intro-next-btn'>Next</button>
+        </div>
+    </div>
+    <canvas id='intro-canvas' width=500 height=500></canvas>
+
+    <div id='vcard-textbox' class='box textbox-box'>
+        <div class='content'>
+            <span id='vcard-title' class="textbox-title">Download vCard</span><br>
+            <span id='vcard-description'></span><br>
+            <button class='button small dodger rounded textbox-next' ng-click='Intro.next();'>Download</button>
+            <button class='button small rounded white textbox-next' ng-click='Intro.end();'>No Thanks</button>
+        </div>
+    </div>
+
+    <div id='vcard-textbox2' class='box textbox-box'>
+        <div class='content'>
+            <span class="textbox-title">Enter Your Email</span><br>
+            <span>Your mobile browser doesn't support downloads of this file type. Instead of downloading it directly, please enter your email below and I will email you the vCard file.</span><br>
+            <input type="text" placeholder="Type your email address..." id="vcard-email">
+            <button class='button small dodger rounded textbox-next' ng-click='Intro.next();'>Send Email</button>
+            <button class='button small rounded white textbox-next' ng-click='Intro.end();'>No Thanks</button>
+        </div>
     </div>
 
     <script src="lib/angular/angular.js"></script>
