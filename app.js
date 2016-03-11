@@ -148,10 +148,7 @@ app.post('/email', function(req, res) {
             html: html, // html body
             attachments: [
                 {fileName: "ZackBomanResume.pdf",
-                    filePath: __dirname + '/app/misc/ZackBomanResume.pdf',
-                    contentType: "application/pdf"},
-                {fileName: "ZackBomanReferences.pdf",
-                    filePath: __dirname + '/app/misc/ZackBomanReferences.pdf',
+                    filePath: __dirname + '/app/misc/ZackBomanResume_3_11_2016.pdf',
                     contentType: "application/pdf"},
                 {fileName: "ZackBoman_vCard.vcf",
                     filePath: __dirname + '/app/misc/ZackBoman_vCard.vcf',
