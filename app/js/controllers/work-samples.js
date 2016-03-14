@@ -5,18 +5,25 @@
 function Web($scope){
     $scope.projects = [
         {
+            name: "Dealfish",
+            link: "https://dealfi.sh",
+            text: "This is a personal side project I have been working on for the past 18 months with a friend. He does most of the backend work and I do most of the frontend work, but we often mix and match responsibilities. The idea is that users can create on-going, realtime searches for retail products on the web. Then our system goes to work finding deals matching their search criteria and alerting them whenever we find a match in the future. The backend is built on Node with a MongoDB database. The frontend is built entirely using Angular and Angular Material.",
+            techs: ["Angular.js","MongoDB","Angular Material","Git","Mongoose.js","Node.js","Express.js"],
+            screenshot: "img/web-projects/dealfish.png"
+        },
+        {
+            name: "Workfront",
+            link: "http://hub.attask.com",
+            text: "As part of the team in charge of document management, I help build a full-scale document asset management systme within Workfront.",
+            techs: ["Angular.js","LESS","Jasmine","Karma","Git","Gulp.js","Require.js","lodash.js"],
+            screenshot: "img/web-projects/workfront.png"
+        },
+        {
             name: "XactCredentials",
             link: "http://test.xactcredentials.com",
             text: "I was the first front-end developer on the team and was able to build the site from the ground up.  Its built completely on AngularJS, consuming RESTful web services. The site is also 100% responsive so it can be accessed from any device.",
-            techs: ["Angular.js","SASS","Jasmine","Protractor","Git","Grunt.js","Gulp.js"],
+            techs: ["Angular.js","SASS","Jasmine","Protractor","Git","Grunt.js","Gulp.js","Leaflet.js"],
             screenshot: "img/web-projects/xactcredentials.png"
-        },
-        {
-            name: "MyAmazonAlerts.com (in progress)",
-            link: "http://getdealalerts.herokuapp.com",
-            text: "I wanted to be alerted about Amazon Lightning Deals without having to manually check their website every day.  Unfortunately Amazon doesn't offer the types of alerts that I was interested in, so I decided to create my own site. MyAmazonAlerts allows users to sign in using OAuth 2.0 for Facebook or Google+ (with plans to expand to Amazon), and create \"tags\" that will create on-going, real-time searches for them. Users will be notified when any of their tags matches any of the products being sold on Amazon's Lightning Deals or Best Deals campaigns. My Node.js server integrates directly with Amazon's REST API and continuously polls every 5 minutes to get the latest deals.  The site is still very much a work-in-progress, but it has been a fun challenge. It is currently hosted on Heroku.",
-            techs: ["Angular.js","SASS","Node.js","Express.js","MongoDB","Mongoose.js","OAuth 2.0","100% Responsive Design"],
-            screenshot: "img/web-projects/myamazonalerts.png"
         },
         {
             name: "ZackBoman.com",
