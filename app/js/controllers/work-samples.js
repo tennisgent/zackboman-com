@@ -23,7 +23,7 @@ function Web($scope){
             link: "http://test.xactcredentials.com",
             text: "I was the first front-end developer on the team and was able to build the site from the ground up.  Its built completely on AngularJS, consuming RESTful web services. The site is also 100% responsive so it can be accessed from any device.",
             techs: ["Angular.js","SASS","Jasmine","Protractor","Git","Grunt.js","Gulp.js","Leaflet.js"],
-            screenshot: "img/web-projects/xactcredentials.png"
+            screenshot: "img/preview-unavailable.jpg"
         },
         {
             name: "ZackBoman.com",
